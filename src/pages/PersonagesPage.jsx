@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import ButtonFavoris from "../components/Fiche";
+import.meta.env.VITE_API_URL;
 
 const PersonPage = ({ search }) => {
   // console.log("search personages", search);
@@ -23,7 +24,7 @@ const PersonPage = ({ search }) => {
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
-        console.log("une erreur est survenue", error);
+        console.log("Une erreur est survenue", error);
       }
     };
     fetchData();

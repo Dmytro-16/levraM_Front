@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import ButtonFavoris from "../components/Fiche";
+import.meta.env.VITE_API_URL;
 
 const ComicsPage = ({ search }) => {
   const [data, setData] = useState(null);
