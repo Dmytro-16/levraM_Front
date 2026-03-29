@@ -1,21 +1,25 @@
 import Image from "../images/LogoM.png";
 import { Link } from "react-router-dom";
 
-const Header = ({ search, setSearch }) => {
+const Header = ({ search, setSearch, token, handleToken }) => {
   return (
     <>
       <nav className="Container">
         <div className="Block_1">
           <div className="Element">
             <div className="Button_L">
-              <Link to="/login">
-                <button>LOG IN</button>
-              </Link>
-
-              {/* <i class="fa-regular fa-house"></i> */}
-              <Link to="/signup">
-                <button>SIGN UP</button>
-              </Link>
+              {token ? (
+                <button onClick={() => handleToken(null)}>LOG OUT</button>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <button>LOG IN</button>
+                  </Link>
+                  <Link to="/signup">
+                    <button>SIGN UP</button>
+                  </Link>
+                </>
+              )}
             </div>
             <div>
               <Link to="/">

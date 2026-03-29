@@ -8,8 +8,8 @@ import Cookies from "js-cookie";
 //***IMPORT ===> PAGE***
 import HomePage from "./pages/HomePage";
 import PersonPage from "./pages/PersonagesPage";
-import ComicsPage from "./pages/ComicsPaage";
-import FaforisPage from "./pages/Favoris";
+import ComicsPage from "./pages/ComicsPage";
+import FavorisPage from "./pages/Favoris";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import NotFound from "./pages/404Page";
@@ -42,18 +42,15 @@ function App() {
         />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/personages" element={<PersonPage search={search} />} />
+          <Route
+            path="/personages"
+            element={<PersonPage search={search} token={token} />}
+          />
           <Route
             path="/comics"
-            element={
-              <ComicsPage
-                handleToken={handleToken}
-                token={token}
-                search={search}
-              />
-            }
+            element={<ComicsPage token={token} search={search} />}
           />
-          <Route path="/favoris" element={<FaforisPage />} />
+          <Route path="/favoris" element={<FavorisPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
 

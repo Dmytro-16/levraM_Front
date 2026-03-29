@@ -1,38 +1,25 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 import ButtonFavoris from "../components/Fiche";
-import.meta.env.VITE_API_URL;
+import CardSkeleton from "../components/CardSkeleton";
 
-const ComicsPage = ({ search }) => {
+const ComicsPage = ({ search, token }) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [favoris, setFavoris] = useState([]);
-  // console.log("search comics", search);
+  const [favoris, setFavoris] = useState(
+    JSON.parse(localStorage.getItem("favorisComics")) || [],
+  );
 
-  /* 🔹 Charger les favoris depuis le cookie */
+  /* 🔹 Sauvegarder les favoris dans le localStorage */
   useEffect(() => {
-    const storedFavoris = Cookies.get("favorisComics");
-    if (storedFavoris) {
-      try {
-        setFavoris(JSON.parse(storedFavoris));
-      } catch {
-        setFavoris([]);
-      }
-    }
-  }, []);
-
-  /* 🔹 Sauvegarder les favoris dans le cookie */
-  useEffect(() => {
-    Cookies.set("favorisComics", JSON.stringify(favoris), {
-      expires: 30,
-      sameSite: "strict",
-    });
+    localStorage.setItem("favorisComics", JSON.stringify(favoris));
   }, [favoris]);
 
   /* 🔹 Fetch DATA comics */
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         let url = import.meta.env.VITE_API_URL + "/comics";
 
@@ -66,7 +53,15 @@ const ComicsPage = ({ search }) => {
     setFavoris(newFavoris);
   };
 
-  if (isLoading) return <div>En cours de chargement...</div>;
+  if (isLoading)
+    return (
+      <div className="Box_Card">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <CardSkeleton key={i} />
+        ))}
+      </div>
+    );
+
   if (!data) return <div>Aucune donnée disponible</div>;
 
   return (
@@ -91,8 +86,16 @@ const ComicsPage = ({ search }) => {
               {comic.description || "Pas de description"}
             </p>
 
-            {/* ❤️ BOUTON FAVORIS PAR CARTE */}
-            <ButtonFavoris isFav={isFav} onClick={() => toggleFavoris(comic)} />
+            {token ? (
+              <ButtonFavoris
+                isFav={isFav}
+                onClick={() => toggleFavoris(comic)}
+              />
+            ) : (
+              <Link to="/login" className="Login_Required">
+                Connectez-vous pour ajouter aux favoris
+              </Link>
+            )}
           </div>
         );
       })}

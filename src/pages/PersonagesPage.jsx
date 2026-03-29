@@ -1,18 +1,19 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import ButtonFavoris from "../components/Fiche";
-import.meta.env.VITE_API_URL;
+import CardSkeleton from "../components/CardSkeleton";
 
-const PersonPage = ({ search }) => {
-  // console.log("search personages", search);
+const PersonPage = ({ search, token }) => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [favoris, setFavoris] = useState(
-    JSON.parse(localStorage.getItem("favoris")) || [],
+    JSON.parse(localStorage.getItem("favorisPersonnages")) || [],
   );
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         let url = import.meta.env.VITE_API_URL + "/personages";
 
@@ -22,9 +23,10 @@ const PersonPage = ({ search }) => {
 
         const response = await axios.get(url);
         setData(response.data);
-        setIsLoading(false);
       } catch (error) {
         console.log("Une erreur est survenue", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();
@@ -42,12 +44,19 @@ const PersonPage = ({ search }) => {
     }
 
     setFavoris(newFavoris);
-    localStorage.setItem("favoris", JSON.stringify(newFavoris));
+    localStorage.setItem("favorisPersonnages", JSON.stringify(newFavoris));
   };
 
-  return isLoading ? (
-    <div>En cours de chargement...</div>
-  ) : (
+  if (isLoading)
+    return (
+      <div className="Box_Card">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <CardSkeleton key={i} />
+        ))}
+      </div>
+    );
+
+  return (
     <div className="Box_Card">
       {/* ❌ Aucun résultat */}
       {search && data.results.length === 0 && (
@@ -69,10 +78,16 @@ const PersonPage = ({ search }) => {
             <p className="Title">{personnage.name}</p>
             <p className="Description">{personnage.description}</p>
 
-            <ButtonFavoris
-              isFav={isFav}
-              onClick={() => toggleFavoris(personnage)}
-            />
+            {token ? (
+              <ButtonFavoris
+                isFav={isFav}
+                onClick={() => toggleFavoris(personnage)}
+              />
+            ) : (
+              <Link to="/login" className="Login_Required">
+                Connectez-vous pour ajouter aux favoris
+              </Link>
+            )}
           </div>
         );
       })}
