@@ -433,6 +433,11 @@ button:hover {
     flex-direction: column;
     align-items: center;
   }
+
+  .Hero {
+    min-height: auto;
+    padding: 80px 20px;
+  }
 }
 
 /* ============================================= */
@@ -603,7 +608,7 @@ button:hover {
 
 /* 404 > PAGE */
 .notfound-container {
-  min-height: 100vh;
+  height: calc(100vh - 150px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -613,12 +618,12 @@ button:hover {
   text-align: center;
   padding: 20px;
   box-sizing: border-box;
-  overflow: auto;
+  overflow: hidden;
 }
 
 /* ---------- LOGIN PAGE ---------- */
 .Login-container {
-  height: 100vh;
+  height: calc(100vh - 150px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -669,7 +674,7 @@ button:hover {
 /* ---------- SIGN UP PAGE ---------- */
 
 .SignUp-container {
-  height: 830px;
+  height: calc(100vh - 150px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -727,57 +732,45 @@ button:hover {
 }
 
 /* ---------- 404 ---------- */
-
-.notfound-container {
-  height: 830px;
-}
 .notfound-container h1 {
-  font-size: 8rem;
+  font-family: "Red Hat Display", sans-serif;
+  font-size: clamp(6rem, 20vw, 12rem);
+  font-weight: 900;
   margin: 0;
   color: rgb(217, 3, 3);
+  letter-spacing: 10px;
   text-shadow:
-    0 0 10px rgba(255, 59, 63, 0.6),
-    2px 2px 8px rgba(0, 0, 0, 0.7);
-  animation: glitchIn 1s ease forwards;
-  font-family: "Red Hat Display", sans-serif;
+    0 0 40px rgba(217, 3, 3, 0.8),
+    0 0 80px rgba(217, 3, 3, 0.3);
 }
 
-/* ---------- TEXT ---------- */
 .notfound-container p {
-  font-size: 1.5rem;
-  margin: 20px 0 40px;
-  color: #ccc;
-  max-width: 600px;
-  animation: fadeUp 1.2s ease forwards;
   font-family: "Red Hat Display", sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  margin: 20px 0 40px;
+  color: #aaa;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  max-width: 500px;
 }
 
-/* ---------- BUTTON ---------- */
 .btn-home {
-  padding: 14px 34px;
-  background: linear-gradient(rgb(217, 3, 3));
-
+  padding: 14px 36px;
+  font-family: "Red Hat Display", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
   color: #fff;
   text-decoration: none;
-  border-radius: 10px;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+  border-radius: 4px;
+  border: 2px solid rgb(217, 3, 3);
+  background: rgb(217, 3, 3);
+  transition: all 0.3s ease;
 }
 
 .btn-home:hover {
-  transform: scale(1.25);
-  box-shadow: 0px 10px 20px 10px rgba(229, 0, 0, 0.6);
-}
-
-/* ---------- RESPONSIVE ---------- */
-@media (max-width: 768px) {
-  .notfound-container h1 {
-    font-size: 5rem;
-  }
-
-  .notfound-container p {
-    font-size: 1.2rem;
-  }
+  background: #ff1a1a;
+  border-color: #ff1a1a;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(217, 3, 3, 0.5);
 }

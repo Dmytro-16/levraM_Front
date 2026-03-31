@@ -1,7 +1,7 @@
 import Image from "../images/LogoM.png";
 import { Link } from "react-router-dom";
 
-const Header = ({ search, setSearch, token, handleToken }) => {
+const Header = ({ search, setSearch, token, username, handleToken }) => {
   return (
     <>
       <nav className="Container">
@@ -9,7 +9,12 @@ const Header = ({ search, setSearch, token, handleToken }) => {
           <div className="Element">
             <div className="Button_L">
               {token ? (
-                <button onClick={() => handleToken(null)}>LOG OUT</button>
+                <>
+                  <Link to="/compte">
+                    <button>👤 {username}</button>
+                  </Link>
+                  <button onClick={() => handleToken(null)}>LOG OUT</button>
+                </>
               ) : (
                 <>
                   <Link to="/login">
