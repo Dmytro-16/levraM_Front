@@ -24,7 +24,7 @@
 
 .Skeleton_Img {
   width: 100%;
-  height: 340px;
+  height: clamp(260px, 72vw, 340px);
   border-radius: 0;
 }
 
@@ -82,7 +82,7 @@
 
 /* ---------- BLOCK 1 (TOP) ---------- */
 .Block_1 {
-  padding: 15px 40px;
+  padding: 15px clamp(16px, 4vw, 40px);
   border-bottom: 1px solid rgb(217, 3, 3);
 }
 
@@ -90,7 +90,7 @@
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 clamp(12px, 3vw, 20px);
 }
 
 /* gauche */
@@ -140,14 +140,21 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 18px;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid #fff;
   font-weight: 600;
   cursor: pointer;
   height: 18px;
+
 }
+.SearchIcon {
+  width: 24px;
+  height: 24px;
+  color: #c21414;
+}
+
+.SearchIcon:hover {
+  color: #ffffff;
+}
+
 .SearchBar {
   padding: 8px 12px;
   border-radius: 25px;
@@ -156,6 +163,7 @@
   color: white;
   font-weight: 600;
   width: 100px;
+  border: 1px solid #c21414;
 }
 
 button {
@@ -224,10 +232,26 @@ button:hover {
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
   .Element {
-    grid-template-columns: 1fr;
-    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     gap: 15px;
     padding: 0;
+  }
+
+  /* Logo en premier sur mobile pour une lecture plus naturelle */
+  .Element > .Button_L {
+    order: 2;
+  }
+
+  .Element > div:nth-child(2) {
+    order: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .Element > .Button_R {
+    order: 3;
   }
 
   .Block_1 {
@@ -243,18 +267,26 @@ button:hover {
   }
 
   .SearchBtn {
-    width: min(100%, 340px);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
     height: auto;
+    min-height: 44px;
     box-sizing: border-box;
+
   }
 
   .SearchBar {
-    width: 100%;
+    flex: 1;
     min-width: 0;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #c21414;
+    box-sizing: border-box;
   }
 
   .Element_2 {
-    gap: 20px;
+    gap: 12px 20px;
     flex-wrap: wrap;
     justify-content: center;
     padding: 12px 16px;
@@ -275,8 +307,10 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 18px;
-  padding: 15px 0;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  padding: 15px clamp(12px, 4vw, 24px);
+  text-align: center;
 }
 
 .Line_1 img {
@@ -297,13 +331,15 @@ button:hover {
 
 .Text_Link_Disney {
   font-family: "Red Hat Display", sans-serif;
-  font-size: 1.2rem;
+  font-size: clamp(0.85rem, 3.5vw, 1.2rem);
   color: #fefefe;
   transition: color 0.3s ease;
   text-decoration-line: underline;
   text-decoration-color: rgb(217, 3, 3);
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
+  line-height: 1.35;
+  max-width: 100%;
 }
 
 /* ===== HERO ===== */
@@ -346,7 +382,7 @@ button:hover {
   font-size: clamp(3rem, 8vw, 7rem);
   font-weight: 900;
   color: #ffffff;
-  letter-spacing: 6px;
+  letter-spacing: clamp(2px, 1.2vw, 6px);
   text-shadow:
     0 0 40px rgba(217, 3, 3, 0.8),
     0 0 80px rgba(217, 3, 3, 0.3);
@@ -366,6 +402,11 @@ button:hover {
   margin-top: 10px;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.Hero_Buttons a {
+  display: block;
+  text-decoration: none;
 }
 
 .Hero_Btn {
@@ -440,8 +481,8 @@ button:hover {
 .Image_M,
 .Image_M1,
 .Image_M2 {
-  width: 500px;
-  height: 300px;
+  width: clamp(220px, 72vw, 500px);
+  height: clamp(132px, 43vw, 300px);
   object-fit: cover;
   border-radius: 12px;
   flex-shrink: 0;
@@ -453,21 +494,28 @@ button:hover {
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
-  .Image_M,
-  .Image_M1,
-  .Image_M2 {
-    width: 280px;
-    height: 180px;
-  }
-
   .Hero_Buttons {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    width: 100%;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .Hero_Btn {
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .Hero {
     min-height: auto;
-    padding: 80px 20px;
+    padding: clamp(48px, 12vw, 80px) clamp(16px, 5vw, 20px);
+  }
+
+  .Line_1 img {
+    width: 44px;
+    height: 44px;
   }
 }
 
@@ -480,7 +528,7 @@ button:hover {
 
 .Favoris_Header {
   text-align: center;
-  padding: 50px 20px 30px;
+  padding: clamp(32px, 8vw, 50px) clamp(16px, 4vw, 20px) 30px;
   border-bottom: 1px solid rgba(217, 3, 3, 0.3);
 }
 
@@ -489,7 +537,7 @@ button:hover {
   font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 900;
   color: #fff;
-  letter-spacing: 6px;
+  letter-spacing: clamp(2px, 1vw, 6px);
   text-shadow: 0 0 30px rgba(217, 3, 3, 0.6);
 }
 
@@ -536,30 +584,39 @@ button:hover {
 /* ============================================= */
 
 .Box_Card {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  justify-items: center;
   gap: 24px;
-  padding: 40px;
+  padding: clamp(20px, 5vw, 40px);
   background: linear-gradient(135deg, #0e0e10, #1c1c1f);
   min-height: 60vh;
 }
 
 .Box_Card h2 {
+  grid-column: 1 / -1;
+  justify-self: stretch;
   width: 100%;
   color: #d90303;
   font-family: "Red Hat Display", sans-serif;
-  font-size: 1.6rem;
+  font-size: clamp(1.15rem, 4vw, 1.6rem);
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: clamp(1px, 0.8vw, 3px);
   text-transform: uppercase;
   padding-bottom: 10px;
   border-bottom: 2px solid rgba(217, 3, 3, 0.35);
 }
 
+.Box_Card .NoResult,
+.Box_Card .Favoris_Section_Empty {
+  grid-column: 1 / -1;
+  justify-self: stretch;
+}
+
 /* ---------- CARD ---------- */
 .Card {
-  width: 240px;
+  width: 100%;
+  max-width: 280px;
   border-radius: 12px;
   overflow: hidden;
   background: #16161a;
@@ -581,7 +638,7 @@ button:hover {
 
 .Card img {
   width: 100%;
-  height: 340px;
+  height: clamp(260px, 72vw, 340px);
   object-fit: cover;
   display: block;
 }
@@ -622,24 +679,20 @@ button:hover {
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
   .Box_Card {
-    padding: 20px;
     gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
   }
 
   .Card {
-    width: min(240px, calc(50% - 8px));
+    max-width: min(320px, 100%);
   }
 }
 
 @media (max-width: 600px) {
-  .Card {
-    width: 100%;
-    max-width: 320px;
-  }
-
   .NoResult {
     text-align: center;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    padding: 0 8px;
   }
 }
 
@@ -653,14 +706,14 @@ button:hover {
     font-size: 0.82rem;
   }
 
-  .Card {
-    width: 100%;
+  .Element_2 a p {
+    font-size: 0.9rem;
   }
 }
 
 /* 404 > PAGE */
 .notfound-container {
-  height: calc(100vh - 150px);
+  min-height: calc(100dvh - 140px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -668,14 +721,14 @@ button:hover {
   background: linear-gradient(135deg, #1c1c1f, #0e0e10);
   color: #fff;
   text-align: center;
-  padding: 20px;
+  padding: clamp(24px, 6vw, 40px) clamp(16px, 4vw, 24px);
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* ---------- LOGIN PAGE ---------- */
 .Login-container {
-  height: calc(100vh - 150px);
+  min-height: calc(100dvh - 140px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -683,12 +736,12 @@ button:hover {
   background: linear-gradient(135deg, #1c1c1f, #0e0e10);
   color: #fff;
   text-align: center;
-  padding: 20px;
+  padding: clamp(24px, 6vw, 40px) clamp(16px, 4vw, 24px);
   background-color: #000000;
 }
 
 .Login-container h1 {
-  font-size: 4rem;
+  font-size: clamp(2.25rem, 10vw, 4rem);
   margin: 0;
   color: rgb(217, 3, 3);
   text-shadow:
@@ -714,11 +767,11 @@ button:hover {
 .Login-form input {
   width: 100%;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 12px;
   border-radius: 8px;
   border: none;
   background: #1a1a1d;
-  font-size: 1rem;
+  font-size: 16px;
   border: #f50303 solid 1px;
   color: rgb(255, 255, 255);
 }
@@ -729,7 +782,7 @@ button:hover {
 /* ---------- SIGN UP PAGE ---------- */
 
 .SignUp-container {
-  height: calc(100vh - 150px);
+  min-height: calc(100dvh - 140px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -737,11 +790,11 @@ button:hover {
   background: linear-gradient(135deg, #1c1c1f, #0e0e10);
   color: #fff;
   text-align: center;
-  padding: 20px;
+  padding: clamp(24px, 6vw, 40px) clamp(16px, 4vw, 24px);
   background-color: #000000;
 }
 .SignUp-container h1 {
-  font-size: 4rem;
+  font-size: clamp(2.25rem, 10vw, 4rem);
   margin: 0;
   color: rgb(217, 3, 3);
   text-shadow:
@@ -768,11 +821,11 @@ button:hover {
 .Signup-form input {
   width: 100%;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 12px;
   border-radius: 8px;
   border: none;
   background: #1a1a1d;
-  font-size: 1rem;
+  font-size: 16px;
   border: #f50303 solid 1px;
   color: rgb(255, 255, 255);
 }

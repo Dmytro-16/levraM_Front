@@ -1,0 +1,56 @@
+# CURSOR RULES - AIRBNBAPP
+
+## 1) Stack du projet
+- Frontend web: React, Next.js, HTML5, CSS3, JavaScript.
+- Mobile: React Native + Expo.
+- Backend: Node.js, Express, MongoDB.
+- Services: Stripe (paiements), Cloudinary (images), Netlify (hosting), Northflank.
+- i18n: utiliser `t("skills.desc.xyz")` quand un systeme de traduction est present.
+
+## 2) Standards de code
+- Favoriser les composants fonctionnels et les hooks.
+- Sur Next.js, respecter App Router si la structure est presente.
+- Sur React Native, prioriser les composants natifs Expo/React Native.
+- Si TypeScript est introduit, typer les nouvelles fonctions et props.
+- Eviter les commentaires inutiles; garder un code lisible et maintenable.
+
+## 3) Git et securite (obligatoire)
+- Interdiction des commandes Git destructives sans confirmation explicite.
+- `dev` = branche de travail.
+- `main` = production (deploiement Netlify).
+- Avant tout push, verifier la branche cible et les fichiers stages.
+- Ne jamais committer de secrets (`.env`, cles API, credentials).
+
+## 4) Procedure de release
+1. Developpement sur `dev` (`add -> commit -> push origin dev`).
+2. Passage en production:
+   - `git checkout main`
+   - `git merge dev`
+   - `git push origin main`
+   - `git checkout dev`
+
+## 5) Regles de reponse de l'agent
+- Repondre en francais.
+- Proposer du code complet, executable et coherent avec la stack.
+- Ne jamais afficher en clair les cles Stripe/Cloudinary ou toute donnee sensible.
+- Toujours demander l'autorisation avant toute modification via une question fermee: "Oui ou NON ?".
+- Commencer chaque intervention par un resume court de l'action prevue.
+- Avant une action sensible, annoncer les risques et demander confirmation si necessaire.
+- Ne jamais faire de `commit` ou `push` sans demande explicite de l'utilisateur.
+- En cas d'ambiguite, poser une question courte et binaire pour clarifier.
+- Fournir en priorite des commandes compatibles Windows PowerShell.
+- Apres modification, proposer une verification finale simple (`git status`, tests, lancement).
+
+## 6) Hygiene Git a appliquer sur chaque projet
+- Des l'initialisation du projet, verifier que `.gitignore` contient au minimum:
+  - `.env`
+  - `.env*.local`
+  - `.cursorrules`
+  - `/.cursor/`
+- Si une de ces lignes manque, l'ajouter avant le premier push.
+- Toujours re-verifier avec `git status` avant commit pour s'assurer qu'aucun fichier local/sensible ne part sur le remote.
+
+## 7) Checklist avant push
+- Verifier `git status` (fichiers modifies, stages, non suivis).
+- Verifier que `.env`, `.cursorrules` et `/.cursor/` ne sont pas pushes.
+- Confirmer la branche cible (`dev` pour travail, `main` pour production).
